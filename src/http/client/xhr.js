@@ -33,6 +33,14 @@ export default function (request) {
             }
         }
 
+        if (request.load) {
+            if (request.method === 'GET') {
+                xhr.addEventListener('load', request.load)
+            } else if (/^(POST|PUT)$/i.test(request.method)) {
+                xhr.upload.addEventListener('load', request.load)
+            }
+        }
+
         xhr.open(request.method, request.getUrl(), true);
 
         if (request.timeout) {
